@@ -128,4 +128,4 @@ Other
 
 License
 ------------
-`laravel-admin` is licensed under [The MIT License (MIT)](LICENSE).
+`laramin` is licensed under [The MIT License (MIT)](LICENSE).
