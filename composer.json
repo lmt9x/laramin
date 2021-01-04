@@ -1,14 +1,14 @@
 {
-    "name": "thieulm/laramin",
-    "description": "laravel admin",
+    "name": "lmt9x/laramin",
+    "description": "Laravel admin",
     "type": "library",
     "keywords": ["laravel", "admin", "grid", "form"],
-    "homepage": "https://github.com/thieu-lm/laramin",
+    "homepage": "https://github.com/lmt9x/laramin",
     "license": "MIT",
     "authors": [
         {
-            "name": "zsong",
-            "email": "zosong@126.com"
+            "name": "lmt9x",
+            "email": ""
         }
     ],
     "require": {
