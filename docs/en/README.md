@@ -29,7 +29,7 @@ Installation
 First, install laravel 5.5, and make sure that the database connection settings are correct.
 
 ```
-composer require encore/laravel-admin 1.5.*
+composer require lmt9x/laramin 1.5.*
 ```
 
 Then run these commands to publish assets and config：

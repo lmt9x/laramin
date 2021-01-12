@@ -6,7 +6,7 @@ First, install laravel, and make sure that the database connection settings are 
 
 Then install require this package with command:
 ```
-composer require encore/laravel-admin "1.5.*"
+composer require lmt9x/laramin "1.5.*"
 ```
 
 Publish assets and config with command：
