@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * Laravel-admin - admin builder based on Laravel.
+ *
+ * Bootstraper for Admin.
+ *
+ * Here you can remove builtin form field:
+ * LaraCore\Admin\Form::forget(['map', 'editor']);
+ *
+ * Or extend custom form field:
+ * LaraCore\Admin\Form::extend('php', PHPEditor::class);
+ *
+ * Or require js and css assets:
+ * Admin::css('/packages/prettydocs/css/styles.css');
+ * Admin::js('/packages/prettydocs/js/main.js');
+ *
+ */
+
+LaraCore\Admin\Form::forget(['map', 'editor']);
