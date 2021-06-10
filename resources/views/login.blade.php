@@ -49,7 +49,7 @@
             <!--begin::Aside Top-->
             <div class="d-flex flex-column-auto flex-column pt-lg-40 pt-15">
                 <!--begin::Aside header-->
-                <a href="#" class="text-center mb-10">
+                <a href="{{ admin_url('/') }}" class="text-center mb-10">
                     <img src="{{ admin_asset("vendor/laramin/media/logos/logo-letter-1.png") }}" class="max-h-70px" alt=""/>
                 </a>
                 <!--end::Aside header-->
@@ -73,7 +73,8 @@
                 <!--begin::Signin-->
                 <div class="login-form login-signin">
                     <!--begin::Form-->
-                    <form class="form" novalidate="novalidate" id="kt_login_signin_form">
+                    <form class="form" novalidate="novalidate" id="kt_login_signin_form"
+                          action="{{ admin_url('auth/login') }}" method="post">
                         <!--begin::Title-->
                         <div class="pb-13 pt-lg-0 pt-5">
                             <h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">Welcome to
@@ -86,7 +87,15 @@
                         <div class="form-group">
                             <label class="font-size-h6 font-weight-bolder text-dark">Email</label>
                             <input class="form-control form-control-solid h-auto py-6 px-6 rounded-lg" type="text"
-                                   name="username" autocomplete="off"/>
+                                   placeholder="{{ trans('admin.username') }}" value="{{ old('username') }}"
+                                   name="username" autocomplete="off" {!! !$errors->has('username') ?: 'is-invalid' !!}"/>
+                            @if($errors->has('username'))
+                                <div class="fv-plugins-message-container">
+                                @foreach($errors->get('username') as $message)
+                                    <div data-field="username" data-validator="notEmpty" class="fv-help-block">{{$message}}</div>
+                                @endforeach
+                                </div>
+                            @endif
                         </div>
                         <!--end::Form group-->
                         <!--begin::Form group-->
@@ -98,13 +107,34 @@
                                    id="kt_login_forgot">Forgot Password ?</a>
                             </div>
                             <input class="form-control form-control-solid h-auto py-6 px-6 rounded-lg" type="password"
-                                   name="password" autocomplete="off"/>
+                                   placeholder="{{ trans('admin.password') }}"
+                                   name="password" autocomplete="off" {!! !$errors->has('password') ?: 'is-invalid' !!}"/>
+                            @if($errors->has('password'))
+                                <div class="fv-plugins-message-container">
+                                    @foreach($errors->get('password') as $message)
+                                        <div data-field="password" data-validator="notEmpty" class="fv-help-block">{{$message}}</div>
+                                    @endforeach
+                                </div>
+                            @endif
                         </div>
+                        @if(config('admin.auth.remember'))
+                        <div class="form-group">
+                            <div class="d-flex justify-content-between mt-n5">
+                                <div class="form-check pl-0 checkbox-inline">
+                                    <label class="checkbox checkbox-outline">
+                                        <input type="checkbox" name="remember"
+                                               value="1" {{ (!old('username') || old('remember')) ? 'checked' : '' }} >
+                                        <span></span>{{ trans('admin.remember_me') }}</label>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                         <!--end::Form group-->
                         <!--begin::Action-->
                         <div class="pb-lg-0 pb-5">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <button type="button" id="kt_login_signin_submit"
-                                    class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">Sign In
+                                    class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3">{{ trans('admin.login') }}
                             </button>
                             <button type="button"
                                     class="btn btn-light-primary font-weight-bolder px-8 py-4 my-3 font-size-lg">
@@ -241,65 +271,6 @@
     <!--end::Login-->
 </div>
 <!--end::Main-->
-{{--<div class="login-box">--}}
-{{--    <div class="login-logo">--}}
-{{--        <a href="{{ admin_url('/') }}"><b>{{config('admin.name')}}</b></a>--}}
-{{--    </div>--}}
-{{--    <!-- /.login-logo -->--}}
-{{--    <div class="login-box-body">--}}
-{{--        <p class="login-box-msg">{{ trans('admin.login') }}</p>--}}
-
-{{--        <form action="{{ admin_url('auth/login') }}" method="post">--}}
-{{--            <div class="form-group has-feedback {!! !$errors->has('username') ?: 'has-error' !!}">--}}
-
-{{--                @if($errors->has('username'))--}}
-{{--                    @foreach($errors->get('username') as $message)--}}
-{{--                        <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>{{$message}}--}}
-{{--                        </label><br>--}}
-{{--                    @endforeach--}}
-{{--                @endif--}}
-
-{{--                <input type="text" class="form-control" placeholder="{{ trans('admin.username') }}" name="username"--}}
-{{--                       value="{{ old('username') }}">--}}
-{{--                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>--}}
-{{--            </div>--}}
-{{--            <div class="form-group has-feedback {!! !$errors->has('password') ?: 'has-error' !!}">--}}
-
-{{--                @if($errors->has('password'))--}}
-{{--                    @foreach($errors->get('password') as $message)--}}
-{{--                        <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>{{$message}}--}}
-{{--                        </label><br>--}}
-{{--                    @endforeach--}}
-{{--                @endif--}}
-
-{{--                <input type="password" class="form-control" placeholder="{{ trans('admin.password') }}" name="password">--}}
-{{--                <span class="glyphicon glyphicon-lock form-control-feedback"></span>--}}
-{{--            </div>--}}
-{{--            <div class="row">--}}
-{{--                <div class="col-xs-8">--}}
-{{--                    @if(config('admin.auth.remember'))--}}
-{{--                        <div class="checkbox icheck">--}}
-{{--                            <label>--}}
-{{--                                <input type="checkbox" name="remember"--}}
-{{--                                       value="1" {{ (!old('username') || old('remember')) ? 'checked' : '' }}>--}}
-{{--                                {{ trans('admin.remember_me') }}--}}
-{{--                            </label>--}}
-{{--                        </div>--}}
-{{--                    @endif--}}
-{{--                </div>--}}
-{{--                <!-- /.col -->--}}
-{{--                <div class="col-xs-4">--}}
-{{--                    <input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
-{{--                    <button type="submit" class="btn btn-primary btn-block btn-flat">{{ trans('admin.login') }}</button>--}}
-{{--                </div>--}}
-{{--                <!-- /.col -->--}}
-{{--            </div>--}}
-{{--        </form>--}}
-
-{{--    </div>--}}
-{{--    <!-- /.login-box-body -->--}}
-{{--</div>--}}
-<!-- /.login-box -->
 
 <script>var HOST_URL = "https://preview.keenthemes.com/metronic/theme/html/tools/preview";</script>
 <!--begin::Global Config(global config for global JS scripts)-->
