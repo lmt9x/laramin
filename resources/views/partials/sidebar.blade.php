@@ -1,49 +1,52 @@
-<aside class="main-sidebar">
+{{-- Aside --}}
+@php
+    $kt_logo_image = 'logo-light.png';
+@endphp
 
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
+@if (config('layout.brand.self.theme') === 'light')
+    @php $kt_logo_image = 'logo-dark.png' @endphp
+@elseif (config('layout.brand.self.theme') === 'dark')
+    @php $kt_logo_image = 'logo-light.png' @endphp
+@endif
+<div class="aside aside-left {{ Metronic::printClasses('aside', false) }} d-flex flex-column flex-row-auto" id="kt_aside">
 
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel">
-            <div class="pull-left image">
-                <img src="{{ Admin::user()->avatar }}" class="img-circle" alt="User Image">
-            </div>
-            <div class="pull-left info">
-                <p>{{ Admin::user()->name }}</p>
-                <!-- Status -->
-                <a href="#"><i class="fa fa-circle text-success"></i> {{ trans('admin.online') }}</a>
-            </div>
+    {{-- Brand --}}
+    <div class="brand flex-column-auto {{ Metronic::printClasses('brand', false) }}" id="kt_brand">
+        <div class="brand-logo">
+            <a href="{{ url('/') }}">
+                <img alt="{{ config('app.name') }}" src="{{ asset('media/logos/'.$kt_logo_image) }}"/>
+            </a>
         </div>
 
-        @if(config('admin.enable_menu_search'))
-        <!-- search form (Optional) -->
-        <form class="sidebar-form" style="overflow: initial;" onsubmit="return false;">
-            <div class="input-group">
-                <input type="text" autocomplete="off" class="form-control autocomplete" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-                <ul class="dropdown-menu" role="menu" style="min-width: 210px;max-height: 300px;overflow: auto;">
-                    @foreach(Admin::menuLinks() as $link)
-                    <li>
-                        <a href="{{ admin_url($link['uri']) }}"><i class="fa {{ $link['icon'] }}"></i>{{ admin_trans($link['title']) }}</a>
-                    </li>
-                    @endforeach
-                </ul>
-            </div>
-        </form>
-        <!-- /.search form -->
+        @if (config('layout.aside.self.minimize.toggle'))
+            <button class="brand-toggle btn btn-sm px-0" id="kt_aside_toggle">
+                {{ Metronic::getSVG("media/svg/icons/Navigation/Angle-double-left.svg", "svg-icon-xl") }}
+            </button>
         @endif
 
-        <!-- Sidebar Menu -->
-        <ul class="sidebar-menu">
-            <li class="header">{{ trans('admin.menu') }}</li>
+    </div>
 
-            @each('admin::partials.menu', Admin::menu(), 'item')
+    {{-- Aside menu --}}
+    <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
 
-        </ul>
-        <!-- /.sidebar-menu -->
-    </section>
-    <!-- /.sidebar -->
-</aside>
+        @if (config('layout.aside.self.display') === false)
+            <div class="header-logo">
+                <a href="{{ url('/') }}">
+                    <img alt="{{ config('app.name') }}" src="{{ asset('media/logos/'.$kt_logo_image) }}"/>
+                </a>
+            </div>
+        @endif
+
+        <div
+                id="kt_aside_menu"
+                class="aside-menu my-4 {{ Metronic::printClasses('aside_menu', false) }}"
+                data-menu-vertical="1"
+                {{ Metronic::printAttrs('aside_menu') }}>
+
+            <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">
+                {{ Menu::renderVerMenu(config('menu_aside.items')) }}
+            </ul>
+        </div>
+    </div>
+
+</div>

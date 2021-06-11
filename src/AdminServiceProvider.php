@@ -2,6 +2,7 @@
 
 namespace LaraCore\Admin;
 
+use LaraCore\Admin\Classes\Theme\Init;
 use LaraCore\Admin\Layout\Content;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
@@ -90,6 +91,8 @@ class AdminServiceProvider extends ServiceProvider
         Blade::directive('endbox', function ($expression) {
             return "'); echo \$box->render(); ?>";
         });
+
+        Init::run();
     }
 
     /**

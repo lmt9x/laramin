@@ -61,38 +61,21 @@ trait HasAssets
      * @var array
      */
     public static $baseCss = [
-        'vendor/laramin/AdminLTE/bootstrap/css/bootstrap.min.css',
-        'vendor/laramin/font-awesome/css/font-awesome.min.css',
-        'vendor/laramin/laramin/laramin.css',
-        'vendor/laramin/nprogress/nprogress.css',
-        'vendor/laramin/sweetalert2/dist/sweetalert2.css',
-        'vendor/laramin/nestable/nestable.css',
-        'vendor/laramin/toastr/build/toastr.min.css',
-        'vendor/laramin/bootstrap3-editable/css/bootstrap-editable.css',
-        'vendor/laramin/google-fonts/fonts.css',
-        'vendor/laramin/AdminLTE/dist/css/AdminLTE.min.css',
+
     ];
 
     /**
      * @var array
      */
     public static $baseJs = [
-        'vendor/laramin/AdminLTE/bootstrap/js/bootstrap.min.js',
-        'vendor/laramin/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js',
-        'vendor/laramin/AdminLTE/dist/js/app.min.js',
-        'vendor/laramin/jquery-pjax/jquery.pjax.js',
-        'vendor/laramin/nprogress/nprogress.js',
-        'vendor/laramin/nestable/jquery.nestable.js',
-        'vendor/laramin/toastr/build/toastr.min.js',
-        'vendor/laramin/bootstrap3-editable/js/bootstrap-editable.min.js',
-        'vendor/laramin/sweetalert2/dist/sweetalert2.min.js',
-        'vendor/laramin/laramin/laramin.js',
+        'vendor/laramin/plugins/custom/jquery-pjax/jquery.pjax.js',
+        'vendor/laramin/js/laramin.js',
     ];
 
     /**
      * @var string
      */
-    public static $jQuery = 'vendor/laramin/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js';
+    public static $jQuery = 'vendor/laramin/plugins/custom/jQuery/jQuery-2.1.4.min.js';
 
     /**
      * @var array
@@ -137,10 +120,6 @@ trait HasAssets
         if (!is_null($css)) {
             return static::$baseCss = $css;
         }
-
-        $skin = config('admin.skin', 'skin-blue-light');
-
-        array_unshift(static::$baseCss, "vendor/laramin/AdminLTE/dist/css/skins/{$skin}.min.css");
 
         return static::$baseCss;
     }

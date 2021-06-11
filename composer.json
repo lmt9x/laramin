@@ -54,7 +54,9 @@
                 "LaraCore\\Admin\\AdminServiceProvider"
             ],
             "aliases": {
-                "Admin": "LaraCore\\Admin\\Facades\\Admin"
+                "Admin": "LaraCore\\Admin\\Facades\\Admin",
+                "Metronic" : "LaraCore\\Admin\\Classes\\Theme\\Metronic",
+                "Menu" : "LaraCore\\Admin\\Classes\\Theme\\Menu"
             }
         }
     }
