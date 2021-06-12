@@ -186,6 +186,8 @@ var KTDatatableRecordSelectionDemo = function() {
 
         var datatable = $('#kt_datatable').KTDatatable(options);
 
+        if (!datatable) return
+
         $('#kt_datatable_search_status').on('change', function() {
             datatable.search($(this).val().toLowerCase(), 'Status');
         });
@@ -242,6 +244,7 @@ var KTDatatableRecordSelectionDemo = function() {
         };
 
         var datatable = $('#kt_datatable_2').KTDatatable(options);
+        if (!datatable) return
 
         $('#kt_datatable_search_status_2').on('change', function() {
             datatable.search($(this).val().toLowerCase(), 'Status');
